@@ -4,7 +4,7 @@
   <artifactId>artifact</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 <packaging>jar</packaging>
-  <name>embeddedTomcatSample Maven Webapp</name>
+  <name>main</name>
   <url>http://maven.apache.org</url>
   <properties>
     <tomcat.version>9.0.34</tomcat.version>
@@ -47,8 +47,8 @@
                 <assembleDirectory>target</assembleDirectory>
                 <programs>
                     <program>
-                        <mainClass>launch.Main</mainClass>
-                        <name>webapp</name>
+                        <mainClass>main.Main</mainClass>
+                        <name>partielCloud</name>
                     </program>
                 </programs>
             </configuration>
