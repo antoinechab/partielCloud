@@ -37,7 +37,7 @@ public class AccManager {
     	      Connection connection = MyResource.getConnection();
 
     	      Statement stmt = connection.createStatement();
-    	      stmt.executeUpdate("INSERT INTO compte VALUES ("+nom+", "+f+", "+0+")");
+    	      stmt.executeUpdate("INSERT INTO compte (name, amount, lastRisk) VALUES ("+nom+", "+f+", 0)");
     		
     		response = Response.status(Status.OK).entity("Le compte "+ nom + " avec une sommee de "+f+" a été créé avec succes!").build();
     		return response;
