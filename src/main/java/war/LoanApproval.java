@@ -5,6 +5,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.Response.StatusType;
 
 @Path("LoanApproval")
 public class LoanApproval {
@@ -24,8 +27,14 @@ public class LoanApproval {
     @GET
     @Path("/{nomducompte}/{somme}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String getIt(@PathParam("nomducompte") String nom, @PathParam("somme") float somme) {
-        return "Le nom du compte: "+nom + " demande la somme de " + somme;
+    public Response getIt(@PathParam("nomducompte") String nom, @PathParam("somme") float somme) {
+    	try {
+    		return Response.status(Status.OK).entity(nom + "demande une somme de " + (float)somme).build();
+    	}catch(ClassCastException e) {
+    		
+    		return Response.status(Status.UNSUPPORTED_MEDIA_TYPE).entity("Le paterne ne respect pas le format et le type de donnée acceptée").build();
+    	}
+    	
     }
 
 }
