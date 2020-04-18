@@ -9,7 +9,7 @@ import javax.ws.rs.PathParam;
 /**
  * Root resource (exposed at "myresource" path)
  */
-@Path("hello")
+@Path("bonjour")
 public class Hello {
 
     /**
@@ -22,6 +22,6 @@ public class Hello {
     @Path("/{nom}")
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt(@PathParam("nom") String nom) {
-        return "Hello "+nom;
+        return "bonjour  "+nom;
     }
 }
