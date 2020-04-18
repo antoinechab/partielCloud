@@ -28,9 +28,9 @@ public class AccManager {
         return "Ici c'est l'acc Mananger!";
     }
     
-    @POST
-    @Path("/create")
-    public Response createAccount(@QueryParam("nameAccount") String nom, @QueryParam("amount") String amount) {
+    @GET
+    @Path("/{nameAccount}/{amount}")
+    public Response createAccount(@PathParam("nameAccount") String nom, @PathParam("amount") String amount) {
     	Response response = null;
     	try {
     		float f = Float.parseFloat(amount);
