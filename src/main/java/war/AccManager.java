@@ -8,6 +8,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -29,7 +30,7 @@ public class AccManager {
     
     @POST
     @Path("/{nameAccount}/{amount}")
-    public Response createAccount(@PathParam("nameAccount") String nom, @PathParam("amount") String amount) {
+    public Response createAccount(@QueryParam("nameAccount") String nom, @QueryParam("amount") String amount) {
     	Response response = null;
     	try {
     		float f = Float.parseFloat(amount);
