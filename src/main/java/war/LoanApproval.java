@@ -28,12 +28,14 @@ public class LoanApproval {
     @Path("/{nomducompte}/{somme}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response getIt(@PathParam("nomducompte") String nom, @PathParam("somme") String somme) {
+    	Response response = null;
     	try {
     		float f = Float.parseFloat(somme);
-    		return Response.status(Status.OK).entity(nom + "demande une somme de " + f).build();
-    	}catch(ClassCastException e) {
-    		
-    		return Response.status(Status.UNSUPPORTED_MEDIA_TYPE).entity("Le paterne ne respect pas le format et le type de donnée acceptée").build();
+    		response = Response.status(Status.OK).entity(nom + "demande une somme de " + f).build();
+    		return response;
+    	}catch(Exception e) {
+    		response = Response.status(Status.UNSUPPORTED_MEDIA_TYPE).entity("Le paterne ne respect pas le format et le type de donnée acceptée").build();
+    		return response;
     	}
     	
     }
