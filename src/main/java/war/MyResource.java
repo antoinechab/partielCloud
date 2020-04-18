@@ -37,7 +37,7 @@ public class MyResource {
     
 
 
-    private Connection getConnection() throws Exception {
+    public static Connection getConnection() throws Exception {
    // Class.forName("org.postgresql.Driver");
     URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
