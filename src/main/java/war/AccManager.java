@@ -29,7 +29,7 @@ public class AccManager {
     }
     
     @POST
-    @Path("/{nameAccount}/{amount}")
+    @Path("/create")
     public Response createAccount(@QueryParam("nameAccount") String nom, @QueryParam("amount") String amount) {
     	Response response = null;
     	try {
