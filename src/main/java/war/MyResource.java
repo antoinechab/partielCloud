@@ -34,6 +34,7 @@ public class MyResource {
         public String getItbd() {
             return showDatabase();
         }
+    
 
 
     private Connection getConnection() throws Exception {
@@ -71,5 +72,17 @@ public class MyResource {
     }
 
   }
+  @Path("createTable")    
+  @GET
+      @Produces(MediaType.TEXT_PLAIN)
+      public String createTable() throws Exception {
+  		Connection connection = getConnection();
+
+  		Statement stmt = connection.createStatement();
+  	 	stmt.executeUpdate("CREATE TABLE IF NOT EXISTS compte (name VARCHAR(100), amount float, lastRisk int)");
+          return "Ok";
+      }
+
+
 
 }
