@@ -78,7 +78,7 @@ public class AccManager {
     	        // print the results
     	      }
     	      st.close();
-    	    response = Response.status(Status.OK).entity(arrayComptes).build();
+    	    response = Response.status(Status.OK).entity(arrayComptes.toString()).build();
     	    return response;
     	}catch(Exception e) {
     		response = Response.status(Status.BAD_REQUEST).entity("Une erreur s'est produite: Impossible de recuperer la liste des comptes").build();
