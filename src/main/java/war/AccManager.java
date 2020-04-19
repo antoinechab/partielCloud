@@ -4,7 +4,9 @@ import java.net.URI;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,6 +18,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import model.Compte;
+
 @Path("AccManager")
 public class AccManager {
 
@@ -25,12 +29,7 @@ public class AccManager {
      *
      * @return String that will be returned as a text/plain response.
      */
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getIt() {
-        return "Ici c'est l'acc Mananger!";
-    }
-    
+  
     @POST
     @Path("/{name}/{amount}")
     @Produces(MediaType.TEXT_PLAIN)
@@ -38,7 +37,7 @@ public class AccManager {
     	Response response = null;
     	try {
     		float f = Float.parseFloat(amount);
-    	    Connection connection = getConnection();
+    	    Connection connection = MyResource.getConnection();
     	    PreparedStatement pstmt = connection.prepareStatement("INSERT INTO compte (name, amount, lastrisk) VALUES( ? , ? , ?)");
     	   // Statement stmt = connection.createStatement();
     	    pstmt.setString(1, name);
@@ -58,16 +57,38 @@ public class AccManager {
     	}
     }
     
-    public static Connection getConnection() throws Exception {
-   // Class.forName("org.postgresql.Driver");
-    URI dbUri = new URI(System.getenv("DATABASE_URL"));
-
-    String username = dbUri.getUserInfo().split(":")[0];
-    String password = dbUri.getUserInfo().split(":")[1];
-    String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
-
-    return DriverManager.getConnection(dbUrl, username, password);
-  }
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response accountList() {
+    	Response response = null;
+    	try {
+    		Connection connection = MyResource.getConnection();
+    		Statement st = connection.createStatement();
+    		ResultSet rs = st.executeQuery("SELECT * FROM compte");
+    		ArrayList<Compte> arrayComptes = new ArrayList<Compte>();
+    		while (rs.next())
+    	      {
+    	        //int id = rs.getInt("id");
+    	        String name = rs.getString("name");
+    	        float amount = rs.getFloat("amount");
+    	        int lastRisk = rs.getInt("lastrisk");
+    	        
+    	        Compte compte = new Compte(name, amount, lastRisk);
+    	        arrayComptes.add(compte);
+    	        // print the results
+    	      }
+    	      st.close();
+    	    response = Response.status(Status.OK).entity(arrayComptes).build();
+    	    return response;
+    	}catch(Exception e) {
+    		response = Response.status(Status.BAD_REQUEST).entity("Une erreur s'est produite: Impossible de recuperer la liste des comptes").build();
+    		System.err.println(e);
+    		return response;
+    		
+    	}
+    }
+    
+  
 
     
 }
