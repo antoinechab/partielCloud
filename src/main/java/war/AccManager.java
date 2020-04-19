@@ -31,16 +31,16 @@ public class AccManager {
     }
     
     @GET
-    @Path("/{nameAccount}/{amount}")
+    @Path("/{name}/{amount}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response createAccount(@PathParam("nameAccount") String nom, @PathParam("amount") String amount) {
+    public Response createAccount(@PathParam("name") String name, @PathParam("amount") String amount) {
     	Response response = null;
     	try {
     		float f = Float.parseFloat(amount);
     	    Connection connection = getConnection();
     	    Statement stmt = connection.createStatement();
-    	    stmt.executeUpdate("INSERT INTO compte (name, amount, lastrisk) VALUES ("+nom+", "+f+", 0)");
-    	    response = Response.status(Status.OK).entity("Le compte "+ nom + " avec une sommee de "+f+" a été créé avec succes!").build();
+    	    stmt.executeUpdate("INSERT INTO compte (name, amount, lastrisk) VALUES ("+name+", "+f+", 0)");
+    	    response = Response.status(Status.OK).entity("Le compte "+ name + " avec une sommee de "+f+" a été créé avec succes!").build();
     	    return response;
     	}catch(Exception e) {
     		response = Response.status(Status.BAD_REQUEST).entity("Erreur lors de la création du compte").build();
