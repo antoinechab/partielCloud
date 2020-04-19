@@ -31,7 +31,7 @@ public class AccManager {
         return "Ici c'est l'acc Mananger!";
     }
     
-    @GET
+    @POST
     @Path("/{name}/{amount}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response createAccount(@PathParam("name") String name, @PathParam("amount") String amount) {
@@ -45,8 +45,11 @@ public class AccManager {
     	    pstmt.setFloat(2, f);
     	    pstmt.setInt(3, 0);
     	    pstmt.executeUpdate();
-    	    response = Response.status(Status.OK).entity("Le compte "+ name + " avec une sommee de "+f+" a été créé avec succes!").build();
+    	    response = Response.status(Status.OK).entity("Le compte "+ name + " avec une somme de "+f+" a été créé avec succes!").build();
     	    return response;
+    	}catch(NumberFormatException e) {
+    		response = Response.status(Status.UNSUPPORTED_MEDIA_TYPE).entity("Le montant doit-etre un chiffre!").build();
+    		return response;
     	}catch(Exception e) {
     		response = Response.status(Status.BAD_REQUEST).entity("Erreur lors de la création du compte").build();
     		System.err.println(e);
