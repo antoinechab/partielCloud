@@ -132,7 +132,8 @@ public class AccManager {
     	    pstmt.setInt(3, lastRisk);
     	    pstmt.setInt(4, id);
     	    pstmt.executeUpdate();
-    	    response = Response.status(Status.OK).entity("Le compte a été mis à jour avec succes!").build();
+    	    Compte compte = new Compte(id, name, amount, lastRisk);
+    	    response = Response.status(Status.OK).entity(compte).type(MediaType.APPLICATION_JSON).build();
     	    return response;
     	}catch(NumberFormatException e) {
     		response = Response.status(Status.UNSUPPORTED_MEDIA_TYPE).entity("Le montant doit-etre un chiffre!").build();
