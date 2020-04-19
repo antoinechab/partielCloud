@@ -3,6 +3,7 @@ package war;
 import java.net.URI;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 import javax.ws.rs.GET;
@@ -38,8 +39,12 @@ public class AccManager {
     	try {
     		float f = Float.parseFloat(amount);
     	    Connection connection = getConnection();
-    	    Statement stmt = connection.createStatement();
-    	    stmt.executeUpdate("INSERT INTO compte (name, amount, lastrisk) VALUES ("+name+", "+f+", 0)");
+    	    PreparedStatement pstmt = connection.prepareStatement("INSERT INTO compte (name, amount, lastrisk) VALUES( ? , ? , ?)");
+    	   // Statement stmt = connection.createStatement();
+    	    pstmt.setString(1, name);
+    	    pstmt.setFloat(2, f);
+    	    pstmt.setInt(3, 0);
+    	    pstmt.executeUpdate();
     	    response = Response.status(Status.OK).entity("Le compte "+ name + " avec une sommee de "+f+" a été créé avec succes!").build();
     	    return response;
     	}catch(Exception e) {
