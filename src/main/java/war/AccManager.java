@@ -68,12 +68,11 @@ public class AccManager {
     		ArrayList<Compte> arrayComptes = new ArrayList<Compte>();
     		while (rs.next())
     	      {
-    	        //int id = rs.getInt("id");
+    	        int id = rs.getInt("id");
     	        String name = rs.getString("name");
     	        float amount = rs.getFloat("amount");
     	        int lastRisk = rs.getInt("lastrisk");
-    	        
-    	        Compte compte = new Compte(name, amount, lastRisk);
+    	        Compte compte = new Compte(id, name, amount, lastRisk);
     	        arrayComptes.add(compte);
     	        // print the results
     	      }

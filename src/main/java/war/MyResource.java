@@ -83,23 +83,5 @@ public class MyResource {
           return "Ok";
       }
   
-  @Path("addPrimary")    
-  @GET
-  @Produces(MediaType.TEXT_PLAIN)
-      public String addPrimary() {
-	  try {
-  		Connection connection = getConnection();
-
-  		Statement stmt = connection.createStatement();
-  		stmt.executeUpdate("DELETE FROM compte WHERE lastRisk = 0;");
-  	 	stmt.executeUpdate("ALTER TABLE compte ADD COLUMN id SERIAL PRIMARY KEY;");
-        return "Ok";
-	  }catch(Exception e) {
-		  System.err.println(e);
-		  return "error";
-	  }
-      }
-
-
 
 }
