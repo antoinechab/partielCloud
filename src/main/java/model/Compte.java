@@ -52,7 +52,7 @@ public class Compte {
 	
 	@Override
 	public String toString() {
-		   return this.id + " - " + this.name + "Avec un montant de: " + this.amount;
+		   return this.id + " - " + this.name + " avec un montant de: " + this.amount;
 		}
 
 
