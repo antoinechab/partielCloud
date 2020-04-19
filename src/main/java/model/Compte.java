@@ -1,5 +1,8 @@
 package model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Compte {
 	private int id;
 	private String name;
