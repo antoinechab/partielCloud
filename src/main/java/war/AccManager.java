@@ -1,6 +1,8 @@
 package war;
 
+import java.net.URI;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.Statement;
 
 import javax.ws.rs.GET;
@@ -31,20 +33,33 @@ public class AccManager {
     @GET
     @Path("/{nameAccount}/{amount}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response createAccount(@PathParam("nameAccount") String nom, @PathParam("amount") String amount) throws Exception {
+    public Response createAccount(@PathParam("nameAccount") String nom, @PathParam("amount") String amount) {
     	Response response = null;
-    //	try {
+    	try {
     		float f = Float.parseFloat(amount);
-    	      Connection connection = MyResource.getConnection();
-
-    	      Statement stmt = connection.createStatement();
-    	      stmt.executeUpdate("INSERT INTO compte (name, amount, lastrisk) VALUES ("+nom+", "+f+", 0)");
-    		
-    	      response = Response.status(Status.OK).entity("Le compte "+ nom + " avec une sommee de "+f+" a été créé avec succes!").build();
+    	    Connection connection = getConnection();
+    	    Statement stmt = connection.createStatement();
+    	    stmt.executeUpdate("INSERT INTO compte (name, amount, lastrisk) VALUES ("+nom+", "+f+", 0)");
+    	    response = Response.status(Status.OK).entity("Le compte "+ nom + " avec une sommee de "+f+" a été créé avec succes!").build();
+    	    return response;
+    	}catch(Exception e) {
+    		response = Response.status(Status.BAD_REQUEST).entity("Erreur lors de la création du compte").build();
+    		System.err.println(e);
     		return response;
-    	//}catch(Exception e) {
-    	//	response = Response.status(Status.BAD_REQUEST).entity("Erreur lors de la création du compte").build();
-    	//	return response;
+    		
+    	}
     }
+    
+    public static Connection getConnection() throws Exception {
+   // Class.forName("org.postgresql.Driver");
+    URI dbUri = new URI(System.getenv("DATABASE_URL"));
+
+    String username = dbUri.getUserInfo().split(":")[0];
+    String password = dbUri.getUserInfo().split(":")[1];
+    String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
+
+    return DriverManager.getConnection(dbUrl, username, password);
+  }
+
     
 }
