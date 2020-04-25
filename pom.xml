@@ -53,6 +53,21 @@
     		<artifactId>jasper</artifactId>
    			<version>6.0.32</version>
 		</dependency>
+		        <!--Jetty Apache JSP dependency  -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>apache-jsp</artifactId>
+            <version>9.2.11.v20150529</version>
+             
+        </dependency>
+ 
+        <!-- JSTL Dependency -->
+ 
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.test-framework.providers</groupId>
             <artifactId>jersey-test-framework-provider-bundle</artifactId>

@@ -9,7 +9,8 @@ import org.eclipse.jetty.webapp.WebAppContext;
  */
 public class Main {
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) {
+    	try {
         // The port that we should run on can be set into an environment variable
         // Look for that variable and default to 8080 if it isn't there.
         String webPort = System.getenv("PORT");
@@ -36,5 +37,8 @@ public class Main {
 
         server.start();
         server.join();
+    }catch(Exception e){
+    	System.err.println("Erreur au démarrage: " + e);
+    }
     }
 }
