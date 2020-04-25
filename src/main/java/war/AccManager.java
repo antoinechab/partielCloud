@@ -124,9 +124,6 @@ public class AccManager {
     	try {
     	    Connection connection = MyResource.getConnection();
     	    PreparedStatement pstmt = connection.prepareStatement("UPDATE compte SET name = ? , amount = ? , lastrisk = ?  WHERE id = ? ");
-    	   // Statement stmt = connection.createStatement();
-    	    
-    	    
     	    pstmt.setString(1, name);
     	    pstmt.setFloat(2, amount);
     	    pstmt.setInt(3, lastRisk);
