@@ -116,7 +116,7 @@ public class AccManager {
     	}
     }
     
-    @POST
+    @PUT
     @Path("/{id}/{name}/{amount}/{lastRisk}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateAccount(@PathParam("id") int id, @PathParam("name") String name, @PathParam("amount") float amount, @PathParam("lastRisk") int lastRisk) {
