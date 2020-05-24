@@ -42,8 +42,8 @@ public class Main {
     }
     }*/
 	
-	 public static void main(String[] args) throws Exception {
-		 
+	 public static void main(String[] args) {
+		 	try {
 	        // 1. Creating the server on port 8080
 	        Server server = new Server(8080);
 	 
@@ -64,6 +64,9 @@ public class Main {
 	        server.setHandler(ctx);
 	        server.start();
 	        server.join();
+		 	}catch(Exception e) {
+		 		System.err.println("L'ERREUR LAAAAAAa " + e);
+		 	}
 	 
 	    }
 }
