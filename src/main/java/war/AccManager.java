@@ -112,7 +112,7 @@ public class AccManager {
     		response = Response.status(Status.UNSUPPORTED_MEDIA_TYPE).entity("L'identifiant doit-etre un chiffre!").build();
     		return response;
     	}catch(Exception e) {
-    		response = Response.status(Status.BAD_REQUEST).entity("Erreur lors de la recuperation du compte!").build();
+    		response = Response.status(Status.BAD_REQUEST).entity("Erreur lors de la recuperation du compte! " + e).build();
     		System.err.println(e);
     		return response;
     		
