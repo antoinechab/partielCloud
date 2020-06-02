@@ -24,14 +24,9 @@ public class Check_account {
      * to the client as "text/plain" media type.
      *
      * @return String that will be returned as a text/plain response.
-     */
+     */  
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Vous voulez connaitre le risque d'un compte? C'est par ici!";
-    }
-    
-    @GET
+    @Path("/{id}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response check(@PathParam("id") int idAccount) {
     	Response response = null;
