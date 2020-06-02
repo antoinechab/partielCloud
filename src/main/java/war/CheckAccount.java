@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response.Status;
 import model.Compte;
 
 @Path("check")
-public class Check_account {
+public class CheckAccount {
 
     /**
      * Method handling HTTP GET requests. The returned object will be sent
@@ -58,19 +58,7 @@ public class Check_account {
     	    		pstmt.executeUpdate();
     	    	}
     	    	response = Response.status(Status.OK).entity("Le compte "+ compte.toString() + " est un compte " + riskString).build();
-                /*long id = resultSet.get("ID");
-                
-                BigDecimal salary = resultSet.getBigDecimal("SALARY");
-                Timestamp createdDate = resultSet.getTimestamp("CREATED_DATE");
 
-                Employee obj = new Employee();
-                obj.setId(id);
-                obj.setName(name);
-                obj.setSalary(salary);
-                // Timestamp -> LocalDateTime
-                obj.setCreatedDate(createdDate.toLocalDateTime());
-
-                System.out.println(obj);*/
             }
     	    pstmt.close();
     	    connection.close();
