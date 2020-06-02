@@ -42,9 +42,14 @@ public class Check_account {
     	    
     	    while (resultSet.next()) {
     	    	
-    	    	response = Response.status(Status.OK).entity("Le compte "+ resultSet).build();
+    	    	
+    	    	int id = resultSet.getInt("id");
+    	    	String name = resultSet.getString("name");
+    	    	float amount = resultSet.getFloat("amount");
+    	    	Compte compte = new Compte(id, name, amount, 0);
+    	    	response = Response.status(Status.OK).entity("Le compte "+ compte.toString()).build();
                 /*long id = resultSet.get("ID");
-                String name = resultSet.getString("NAME");
+                
                 BigDecimal salary = resultSet.getBigDecimal("SALARY");
                 Timestamp createdDate = resultSet.getTimestamp("CREATED_DATE");
 
