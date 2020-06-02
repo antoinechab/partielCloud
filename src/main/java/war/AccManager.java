@@ -103,13 +103,18 @@ public class AccManager {
                     ResultSet.CONCUR_UPDATABLE);
     	    pstmt.setInt(1, id);
     	    ResultSet rs = pstmt.executeQuery();
-    	    
-    	    int idrs = rs.getInt("id");
-	        String name = rs.getString("name");
-	        float amount = rs.getFloat("amount");
-	        int lastRisk = rs.getInt("lastrisk");
-	        Compte compte = new Compte(idrs, name, amount, lastRisk);
-    	    response = Response.status(Status.OK).entity(compte.toString()).build();
+    	    ArrayList<Compte> arrayComptes = new ArrayList<Compte>();
+    		while (rs.next())
+    	      {
+    	        int id2 = rs.getInt("id");
+    	        String name = rs.getString("name");
+    	        float amount = rs.getFloat("amount");
+    	        int lastRisk = rs.getInt("lastrisk");
+    	        Compte compte = new Compte(id2, name, amount, lastRisk);
+    	        arrayComptes.add(compte);
+    	        // print the results
+    	      }
+    	    response = Response.status(Status.OK).entity(arrayComptes.get(0).toString()).build();
     	    return response;
     	}catch(NumberFormatException e) {
     		response = Response.status(Status.UNSUPPORTED_MEDIA_TYPE).entity("L'identifiant doit-etre un chiffre!").build();
