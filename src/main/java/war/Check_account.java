@@ -47,15 +47,17 @@ public class Check_account {
     	    	String name = resultSet.getString("name");
     	    	float amount = resultSet.getFloat("amount");
     	    	Compte compte = new Compte(id, name, amount, 0);
+    	    	String riskString = "non-risqué !";
     	    	if(amount < 2000.0) {
     	    		int risk = 1;
     	    		compte.setLastrisk(risk);
+    	    		riskString = "risqué !";
     	    		pstmt = connection.prepareStatement("UPDATE compte SET lastrisk = ? WHERE id = ? ");
     	    		pstmt.setInt(1, risk);
     	    		pstmt.setInt(2, id);
     	    		pstmt.executeUpdate();
     	    	}
-    	    	response = Response.status(Status.OK).entity("Le compte "+ compte.toString()).build();
+    	    	response = Response.status(Status.OK).entity("Le compte "+ compte.toString() + " est un compte" + riskString).build();
                 /*long id = resultSet.get("ID");
                 
                 BigDecimal salary = resultSet.getBigDecimal("SALARY");
