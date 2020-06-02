@@ -92,6 +92,28 @@ public class AccManager {
     	}
     }
     
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response oneAccount(@PathParam("id") int id) {
+    	Response response = null;
+    	try {
+    	    Connection connection = MyResource.getConnection();
+    	    Statement pstmt = connection.createStatement();
+    	    ResultSet rs = pstmt.executeQuery("SELECT FROM compte WHERE id = " + id);
+    	    response = Response.status(Status.OK).entity(rs).build();
+    	    return response;
+    	}catch(NumberFormatException e) {
+    		response = Response.status(Status.UNSUPPORTED_MEDIA_TYPE).entity("L'identifiant doit-etre un chiffre!").build();
+    		return response;
+    	}catch(Exception e) {
+    		response = Response.status(Status.BAD_REQUEST).entity("Erreur lors de la recuperation du compte!").build();
+    		System.err.println(e);
+    		return response;
+    		
+    	}
+    }
+    
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.TEXT_PLAIN)
