@@ -99,8 +99,11 @@ public class AccManager {
     	Response response = null;
     	try {
     	    Connection connection = MyResource.getConnection();
-    	    Statement pstmt = connection.createStatement();
-    	    ResultSet rs = pstmt.executeQuery("SELECT * FROM compte WHERE id = " + id);
+    	    PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM compte WHERE id = ?", ResultSet.TYPE_SCROLL_SENSITIVE, 
+                    ResultSet.CONCUR_UPDATABLE);
+    	    pstmt.setInt(1, id);
+    	    ResultSet rs = pstmt.executeQuery();
+    	    
     	    int idrs = rs.getInt("id");
 	        String name = rs.getString("name");
 	        float amount = rs.getFloat("amount");
