@@ -47,6 +47,14 @@ public class Check_account {
     	    	String name = resultSet.getString("name");
     	    	float amount = resultSet.getFloat("amount");
     	    	Compte compte = new Compte(id, name, amount, 0);
+    	    	if(amount < 2000.0) {
+    	    		int risk = 1;
+    	    		compte.setLastrisk(risk);
+    	    		pstmt = connection.prepareStatement("UPDATE compte SET lastrisk = ? WHERE id = ? ");
+    	    		pstmt.setInt(1, risk);
+    	    		pstmt.setInt(2, id);
+    	    		pstmt.executeUpdate();
+    	    	}
     	    	response = Response.status(Status.OK).entity("Le compte "+ compte.toString()).build();
                 /*long id = resultSet.get("ID");
                 
@@ -66,10 +74,10 @@ public class Check_account {
     	    connection.close();
     	    return response;
     	}catch(NumberFormatException e) {
-    		response = Response.status(Status.UNSUPPORTED_MEDIA_TYPE).entity("Le montant doit-etre un chiffre!").build();
+    		response = Response.status(Status.UNSUPPORTED_MEDIA_TYPE).entity("L'id doit-etre un chiffre!").build();
     		return response;
     	}catch(Exception e) {
-    		response = Response.status(Status.BAD_REQUEST).entity("Erreur lors de la creation du compte: " +  e).build();
+    		response = Response.status(Status.BAD_REQUEST).entity("Erreur lors de récupération du compte: " +  e).build();
     		System.err.println(e);
     		return response;
     		
