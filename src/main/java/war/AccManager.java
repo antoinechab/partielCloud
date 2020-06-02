@@ -100,13 +100,13 @@ public class AccManager {
     	try {
     	    Connection connection = MyResource.getConnection();
     	    Statement pstmt = connection.createStatement();
-    	    ResultSet rs = pstmt.executeQuery("SELECT FROM compte WHERE id = " + id);
-    	    /*int idrs = rs.getInt("id");
+    	    ResultSet rs = pstmt.executeQuery("SELECT * FROM compte WHERE id = " + id);
+    	    int idrs = rs.getInt("id");
 	        String name = rs.getString("name");
 	        float amount = rs.getFloat("amount");
 	        int lastRisk = rs.getInt("lastrisk");
-	        Compte compte = new Compte(idrs, name, amount, lastRisk);*/
-    	    response = Response.status(Status.OK).entity(rs.first()).build();
+	        Compte compte = new Compte(idrs, name, amount, lastRisk);
+    	    response = Response.status(Status.OK).entity(compte.toString()).build();
     	    return response;
     	}catch(NumberFormatException e) {
     		response = Response.status(Status.UNSUPPORTED_MEDIA_TYPE).entity("L'identifiant doit-etre un chiffre!").build();
