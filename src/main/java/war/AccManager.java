@@ -106,7 +106,7 @@ public class AccManager {
 	        float amount = rs.getFloat("amount");
 	        int lastRisk = rs.getInt("lastrisk");
 	        Compte compte = new Compte(idrs, name, amount, lastRisk);
-    	    response = Response.status(Status.OK).entity(compte.toString()).build();
+    	    response = Response.status(Status.OK).entity(rs.first()).build();
     	    return response;
     	}catch(NumberFormatException e) {
     		response = Response.status(Status.UNSUPPORTED_MEDIA_TYPE).entity("L'identifiant doit-etre un chiffre!").build();
