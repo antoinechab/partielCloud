@@ -45,7 +45,7 @@ public class Main {
 	 public static void main(String[] args) {
 		 	try {
 	        // 1. Creating the server on port 8080
-	        Server server = new Server(8080);
+	        Server server = new Server(3000);
 	 
 	        // 2. Creating the WebAppContext for the created content
 	        WebAppContext ctx = new WebAppContext();
