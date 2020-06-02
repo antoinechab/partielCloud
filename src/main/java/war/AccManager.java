@@ -101,11 +101,11 @@ public class AccManager {
     	    Connection connection = MyResource.getConnection();
     	    Statement pstmt = connection.createStatement();
     	    ResultSet rs = pstmt.executeQuery("SELECT FROM compte WHERE id = " + id);
-    	    int idrs = rs.getInt("id");
+    	    /*int idrs = rs.getInt("id");
 	        String name = rs.getString("name");
 	        float amount = rs.getFloat("amount");
 	        int lastRisk = rs.getInt("lastrisk");
-	        Compte compte = new Compte(idrs, name, amount, lastRisk);
+	        Compte compte = new Compte(idrs, name, amount, lastRisk);*/
     	    response = Response.status(Status.OK).entity(rs.first()).build();
     	    return response;
     	}catch(NumberFormatException e) {
